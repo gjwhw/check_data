@@ -9,8 +9,8 @@ import os
 import sys
 import shutil
 import datetime
-import city
-import chkdef
+#import city
+#import chkdef
 
 starttime = datetime.datetime.now()
 print '开始时间'
