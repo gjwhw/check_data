@@ -14,10 +14,10 @@ print('开始时间')
 print(starttime)
 
 # 传入文件地址路径
-# filename = sys.argv[1]
-# filename = sys.argv[2]
-filename = '321.txt'
-filename2 = '1122.txt'
+filename = sys.argv[1]
+filename2 = sys.argv[2]
+# filename = '321.txt'
+# filename2 = '1122.txt'
 # 定义列名的列表
 name1 = ['TIMESTAMP', '省地区代码', '市地区代码', 'STB_ID', '机顶盒IP', '业务帐号', '机顶盒SN',
         'MDI-DF平均值', 'MDI-MLR平均值', 'RTP丢包率平均值', 'MDI-DF劣化百分比', 'MDI-MLR劣化百分比',
@@ -57,8 +57,8 @@ z.to_csv('temporary_file', index=False, sep='|', header=0)
 x.close()
 y2.close()
 # 重命名文件
-# os.unlink(filename)
-# shutil.move('temporary_file', filename)
+os.unlink(filename)
+shutil.move('temporary_file', filename)
 
 print('运行时间')
 endtime = datetime.datetime.now()
