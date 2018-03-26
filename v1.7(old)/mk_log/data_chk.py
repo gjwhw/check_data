@@ -93,8 +93,8 @@ file_log.close()
 # 地区日志生成结束
 
 # 处理后的准确数据覆盖源文件
-os.unlink(file_path+'.valid')
-shutil.move( file_path+'.valid' , file_path)
+# os.unlink(file_path+'.valid')
+# shutil.move( file_path+'.valid' , file_path)
 
 '''
 #判断是否存在错误数据，如无错误数据则删除文件
