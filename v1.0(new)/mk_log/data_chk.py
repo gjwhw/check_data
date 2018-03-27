@@ -10,8 +10,8 @@ import chkdef
 
 
 starttime= datetime.datetime.now()
-print '开始时间'
-print starttime
+print('开始时间')
+print(starttime)
 
 
 #定义参数
@@ -26,7 +26,7 @@ province = sys.argv[5]        #输入省份大写   LN
 # func_name = 'cdn_pm'
 # day = '20180305'
 
-path_error,path_log,data_type =data.path(type2)       #返回错误文件路径，正确文件路径，数据类型
+path_error,path_log,data_type =data.path(type2,day,province)       #返回错误文件路径，正确文件路径，数据类型
 p = city.Province()
 city_error = getattr(p,province)()                     #地区编号字典     1
 city_valid = city_error.copy()
@@ -64,24 +64,29 @@ file_error.close()
 
 
 # 省日志功能
-file_log = open((path_log + filename_log),'w')
+file_log = open((path_log + 'province-' + filename_log),'w')
 # 日志内容“日期|省份|数据类型|正常数据条数|异常数据条数|合计条数”
 log = (line[0][:10] + '|' + line[1] + '|'+ data_type + '|' + str(num_valid) + '|'
        + str(num_error) + '|' + str(num_valid+num_error)+'\n')
 file_log.write(log)                            # 写入日志文件
-
+print('省日志')
+print('日期|省份|数据类型|正常数据条数|异常数据条数|合计条数')
+print(log)
 file_log.close()
 # 省日志功能结束
 
 # 地区日志功能
 file_log = open((path_log + 'city-' + filename_log),'w')
+print('地市日志')
+print('日期|省份|地区|数据类型|正常数据条数|异常数据条数|合计条数')
 for x in city_error.keys():
         num_error = city_error[x]
         num_valid = city_valid[x]
 # 日志内容“日期|省份|地区|数据类型|正常数据条数|异常数据条数|合计条数”
         log = (line[0][:10] + '|' + line[1] +'|'+ str(x) + '|' + data_type + '|' + str(num_valid) + '|'
                  + str(num_error) + '|' + str(num_valid + num_error) + '\n')
-        file_log.write(log)                            # 写入日志文件
+        file_log.write(log)
+        print(log)# 写入日志文件
 file_log.close()
 # 地区日志生成结束
 
@@ -89,14 +94,9 @@ file_log.close()
 # os.unlink(file_path+'.valid')
 # shutil.move( file_path+'.valid' , file_path)
 
-'''
-#判断是否存在错误数据，如无错误数据则删除文件
-file_null = open(sys.argv[2], 'r').read()
-if len(file_null) == 0:
-    os.unlink(sys.argv[2])
-'''
+
 endtime = datetime.datetime.now()
-print '运行时间'
+print('运行时间')
 print(endtime - starttime)
 
 
