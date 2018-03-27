@@ -27,7 +27,7 @@ province = sys.argv[5]        #输入省份大写   LN
 # day = '20180305'
 # province = 'HEN'
 
-path_error,path_log,data_type =data.path(type2)       #返回错误文件路径，正确文件路径，数据类型
+path_error,path_log,data_type =data.path(type2,day,province)       #返回错误文件路径，正确文件路径，数据类型
 p = city.Province()
 city_error = getattr(p,province)()                     #地区编号字典     1
 city_valid = city_error.copy()
