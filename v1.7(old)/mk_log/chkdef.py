@@ -8,7 +8,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -54,7 +54,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -111,7 +111,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -193,7 +193,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -211,7 +211,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -257,7 +257,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -303,7 +303,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -321,7 +321,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -339,7 +339,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -357,7 +357,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
@@ -375,7 +375,7 @@ class Check:
         num_valid = 0
         for everyline in file_1:
             line = everyline.split('|')
-            line = [0 if x == '' or x == '\r\n' else x for x in line]
+            line = [0 if x == '' or x == '\n' else x for x in line]
             if float(line[2]) not in city_error:
                 file_error.write(everyline)
                 num_error += 1
