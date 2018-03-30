@@ -49,7 +49,7 @@ class Check:
                     city_error[x] += 1
         return num_valid,num_error
 
-    def user_info(self,file_1,file_error,city_error,city_valid):
+    def users_info(self,file_1,file_error,city_error,city_valid):
         num_error = 0
         num_valid = 0
         for everyline in file_1:
@@ -61,8 +61,8 @@ class Check:
                 city_error[10010] += 1
                 # return False
             else :
-                if (        float(line[3]) < 100000
-                        and float(line[4]) < 100000
+                if (        float(line[3]) < 1000000
+                        and float(line[4]) < 1000000
                         # and float(line[8])<10000
                         # and float(line[9])<10000
                         # and float(line[10])<1000
@@ -81,19 +81,19 @@ class Check:
                 ):
                     # file_valid.write(everyline)
                     # 对数据逻辑性验证
-                    if (
-                            float(line[3]) > float(line[4])
+                    # if (
+                    #         float(line[3]) > float(line[4])
                             # float(line[9])>float(line[8])
                             # or float(line[11])>float(line[10])
                             # or float(line[14])>float(line[13])
                             # or float(line[17]) > float(line[16])
                             # or float(line[21]) > float(line[20])
-                    ):
-                        file_error.write(everyline)
-                        num_error += 1
-                        x = float(line[2])
-                        city_error[x] += 1
-                    else:
+                    # ):
+                    #     file_error.write(everyline)
+                    #     num_error += 1
+                    #     x = float(line[2])
+                    #     city_error[x] += 1
+                    # else:
                         # file_valid.write(everyline)
                         num_valid += 1
                         x = float(line[2])
@@ -118,8 +118,7 @@ class Check:
                 city_error[10010] += 1
                 # return False
             else :
-                if (float(line[6]) < 100000
-                        and float(line[7]) < 100000
+                if (        float(line[7]) < 100000
                         and float(line[8]) < 100000
                         and float(line[9]) < 100000
                         and float(line[10]) < 100000

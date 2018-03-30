@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
-import city
+
 # 验证函数
 class Check:
     
@@ -16,14 +16,14 @@ class Check:
                 city_error[10010] += 1
                 # return False
             else :
-                if (float(line[6]) < 10000
-                    and float(line[7]) < 10000
-                    and float(line[8]) < 50
-                    and float(line[9]) < 50
-                    and float(line[10]) < 50
-                    and float(line[11]) < 500
-                    and float(line[12]) < 500
-                    and float(line[14]) < 10000
+                if (float(line[6]) < 100000
+                    and float(line[7]) < 100000
+                    and float(line[8]) < 100000
+                    and float(line[9]) < 100000
+                    and float(line[10]) < 100000
+                    and float(line[11]) < 100000
+                    and float(line[12]) < 100000
+                    and float(line[14]) < 100000
                     and float(line[15]) < 100000
                     and float(line[16]) < 100000):
 
@@ -192,17 +192,17 @@ class Check:
                         # and float(line[21])<1000000
                         # and float(line[22])<1000000
                 ):
-                    if (float(line[5]) > float(line[6])
-                            or float(line[7]) > float(line[5])
-                            or float(line[8]) > float(line[9])
-                            or float(line[10]) > float(line[8])
-                    ):
-                        file_error.write(everyline)
-                        num_error += 1
-                        x = float(line[2])
-                        city_error[x] += 1
-                    else:
-                        # file_valid.write(everyline)
+                    # if (float(line[5]) > float(line[6])
+                    #         or float(line[7]) > float(line[5])
+                    #         or float(line[8]) > float(line[9])
+                    #         or float(line[10]) > float(line[8])
+                    # ):
+                    #     file_error.write(everyline)
+                    #     num_error += 1
+                    #     x = float(line[2])
+                    #     city_error[x] += 1
+                    # else:
+                    #     file_valid.write(everyline)
                         num_valid += 1
                         x = float(line[2])
                         city_valid[x] += 1
@@ -333,20 +333,20 @@ class Check:
                         # and float(line[21])<1000000
                         # and float(line[22])<1000000
                 ):
-                    if (
-                            float(line[6]) > float(line[7])
-                            or float(line[8]) > float(line[9])
-                            or float(line[10]) > float(line[11])
-                            or float(line[12]) > float(line[13])
-                            or float(line[17]) > float(line[18])
-                            or float(line[19]) > float(line[20])
-                            or float(line[21]) > float(line[22])
-                    ):
-                        file_error.write(everyline)
-                        num_error += 1
-                        x = float(line[2])
-                        city_error[x] += 1
-                    else:
+                    # if (
+                    #         float(line[6]) > float(line[7])
+                    #         or float(line[8]) > float(line[9])
+                    #         or float(line[10]) > float(line[11])
+                    #         or float(line[12]) > float(line[13])
+                    #         or float(line[17]) > float(line[18])
+                    #         or float(line[19]) > float(line[20])
+                    #         or float(line[21]) > float(line[22])
+                    # ):
+                    #     file_error.write(everyline)
+                    #     num_error += 1
+                    #     x = float(line[2])
+                    #     city_error[x] += 1
+                    # else:
                         # file_valid.write(everyline)
                         num_valid += 1
                         x = float(line[2])
@@ -497,4 +497,309 @@ class Check:
                     x = float(line[2])
                     city_error[x] += 1
         return num_valid,num_error
+    
+    def stb_cm1(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def vsource_mdp(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def vsource_qlt(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def iptv_view_pm(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def iptv_user_pm(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def user_vtime(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                if (float(line[3]) < 1000000000
+                    and float(line[4]) < 1000000000
+                    and float(line[5]) < 1000000000
+                    # and float(line[9]) < 50
+                    # and float(line[10]) < 50
+                    # and float(line[11]) < 500
+                    # and float(line[12]) < 500
+                    # and float(line[14]) < 10000
+                    # and float(line[15]) < 100000
+                    # and float(line[16]) < 100000
+                    ):
+
+                    # 对数据逻辑性验证
+                    if (float(line[4]) > float(line[3])
+                        or float(line[5]) > float(line[3])
+                        # or float(line[11]) > float(line[12])
+                        # or float(line[15]) > float(line[16])
+                    ):
+                        file_error.write(everyline)
+                        num_error += 1
+                        x = float(line[2])
+                        city_error[x] += 1
+                    else:
+                        # file_valid.write(everyline)
+                        num_valid += 1
+                        x = float(line[2])
+                        city_valid[x] += 1
+                else:
+                    file_error.write(everyline)
+                    num_error += 1
+                    x = float(line[2])
+                    city_error[x] += 1
+        return num_valid,num_error
+    
+    def iptv_liveava(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def vsource_faults1(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                if (float(line[6]) < 1000000000
+                    and float(line[7]) < 1000000000
+                    and float(line[8]) < 1000000000
+                    and float(line[9]) < 1000000000
+                    and float(line[10]) < 1000000000
+                    and float(line[5]) < 1000000000
+                    # and float(line[12]) < 500
+                    # and float(line[14]) < 10000
+                    # and float(line[15]) < 100000
+                    # and float(line[16]) < 100000
+                ):
+
+                    # 对数据逻辑性验证
+                    if (float(line[6]) > float(line[5])
+                        or float(line[7]) > float(line[5])
+                        or float(line[8]) > float(line[5])
+                        or float(line[9]) > float(line[5])
+                        or float(line[10]) > float(line[5])
+                    ):
+                        file_error.write(everyline)
+                        num_error += 1
+                        x = float(line[2])
+                        city_error[x] += 1
+                    else:
+                        # file_valid.write(everyline)
+                        num_valid += 1
+                        x = float(line[2])
+                        city_valid[x] += 1
+                else:
+                    file_error.write(everyline)
+                    num_error += 1
+                    x = float(line[2])
+                    city_error[x] += 1
+        return num_valid,num_error
+    
+    def vsource_faults2(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                if (float(line[6]) < 1000000000
+                    and float(line[7]) < 1000000000
+                    and float(line[8]) < 1000000000
+                    and float(line[9]) < 1000000000
+                    and float(line[10]) < 1000000000
+                    and float(line[5]) < 1000000000
+                    # and float(line[12]) < 500
+                    # and float(line[14]) < 10000
+                    # and float(line[15]) < 100000
+                    # and float(line[16]) < 100000
+                ):
+
+                    # 对数据逻辑性验证
+                    if (float(line[6]) > float(line[5])
+                        or float(line[7]) > float(line[5])
+                        or float(line[8]) > float(line[5])
+                        or float(line[9]) > float(line[5])
+                        or float(line[10]) > float(line[5])
+                    ):
+                        file_error.write(everyline)
+                        num_error += 1
+                        x = float(line[2])
+                        city_error[x] += 1
+                    else:
+                        # file_valid.write(everyline)
+                        num_valid += 1
+                        x = float(line[2])
+                        city_valid[x] += 1
+                else:
+                    file_error.write(everyline)
+                    num_error += 1
+                    x = float(line[2])
+                    city_error[x] += 1
+        return num_valid,num_error
+    
+    def vsource_livechninfo(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def vsource_liveconinfo(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+    def vsource_vodconinfo(self,file_1,file_error,city_error,city_valid):
+        num_error = 0
+        num_valid = 0
+        for everyline in file_1:
+            line = everyline.split('|')
+            line = [0 if x == '' or x == '\n' else x for x in line]
+            if float(line[2]) not in city_error:
+                file_error.write(everyline)
+                num_error += 1
+                city_error[10010] += 1
+                # return False
+            else :
+                # file_valid.write(everyline)
+                num_valid += 1
+                x = float(line[2])
+                city_valid[x] += 1
+        return num_valid,num_error
+    
+
+    
 
