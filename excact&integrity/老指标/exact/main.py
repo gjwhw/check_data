@@ -17,12 +17,18 @@ print(starttime)
 file_in = sys.argv[1]
 file_out = sys.argv[2]
 func_name = sys.argv[3]
-# file_in = 'STB-PM-OPERS.txt'
-# file_out = 'STB-PM-OPERS-OUT.txt'
-# func_name = 'stb_pm_opers'
+# file_in = 'STB-PM-VMOS'
+# file_out = 'STB-PM-VMOS.txt'
+# func_name = 'stb_pm_vmos'
+# file_in = 'EPG-PM111'
+# file_out = 'EPG-PM.txt'
+# func_name = 'epg_pm'
 
 c = func.Test()
-getattr(c, func_name)(file_in,file_out)
+try:
+    getattr(c, func_name)(file_in,file_out)
+except FileNotFoundError:
+    print(func_name+"指标未采集到")
 
 
 print('运行时间')
