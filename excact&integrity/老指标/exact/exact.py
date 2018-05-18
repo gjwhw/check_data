@@ -5,7 +5,7 @@
 # @File     :functions.py
 # @Software :PyCharm
 import pandas as pd
-
+# 老指标校验程序
 
 class Test:
     def epg_pm(self, file_in, file_out):
@@ -68,6 +68,7 @@ class Test:
                 for x in [7, 8, 9, 10]:
                     if file_chunk[x].dtype == 'object' :
                         file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
                         file_chunk[x] = file_chunk[x].astype(float)
                 
     
@@ -133,6 +134,7 @@ class Test:
                 for x in [7, 8, 9 ,10]:
                     if file_chunk[x].dtype == 'object':
                         file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
                         file_chunk[x] = file_chunk[x].astype(float)
     
     def stb_pm_opers(self, file_in, file_out):
@@ -203,6 +205,7 @@ class Test:
                 for x in [18, 19, 32, 33]:
                     if file_chunk[x].dtype == 'object' :
                         file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
                         file_chunk[x] = file_chunk[x].astype(float)
     
     def stb_pm_vmos(self, file_in, file_out):
@@ -279,5 +282,6 @@ class Test:
                 for x in [8, 9, 10, 14, 15, 16, 17,18]:
                     if file_chunk[x].dtype == 'object':
                         file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
                         file_chunk[x] = file_chunk[x].astype(float)
 
