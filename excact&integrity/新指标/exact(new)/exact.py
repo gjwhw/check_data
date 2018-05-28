@@ -237,7 +237,7 @@ class Test:
                 dict1['STB-INSERV-RTSP-012<=STB-INSERV-RTSP-011'] = file_chunk.loc[
                     (file_chunk[12] > file_chunk[11])].count1.count()
                 # 单播请求成功次数<=单播请求次数
-                dict1['SSTB-INSERV-RTSP-015<=STB-INSERV-RTSP-014'] = file_chunk.loc[
+                dict1['STB-INSERV-RTSP-015<=STB-INSERV-RTSP-014'] = file_chunk.loc[
                     (file_chunk[15] > file_chunk[14])].count1.count()
                 # 组播频道切换成功次数<=组播频道切换次数
                 dict1['STB-INSERV-RTSP-022<=STB-INSERV-RTSP-021'] = file_chunk.loc[
@@ -365,7 +365,7 @@ class Test:
                 dict1['STB-TRANS-011<=STB-TRANS-012'] = file_chunk.loc[
                     (file_chunk[11] > file_chunk[12])].count1.count()
                 # TCP乱序率平均值<=TCP乱序率最大值
-                dict1['STB-TRANS-0013<=STB-TRANS-014'] = file_chunk.loc[
+                dict1['STB-TRANS-013<=STB-TRANS-014'] = file_chunk.loc[
                     (file_chunk[13] > file_chunk[14])].count1.count()
                 # RTP丢包率平均值（RTSP UDP）<=RTP丢包率最大值（RTSP UDP）
                 dict1['STB-TRANS-018<=STB-TRANS-019'] = file_chunk.loc[
@@ -786,6 +786,269 @@ class Test:
                     (file_chunk[5] > file_chunk[4]) | (file_chunk[6] > file_chunk[4]), [1, 2,
                                                                                         3, 4,
                                                                                         5, 6]].to_csv(
+                    file_out + '.logic', sep='|', header=None, index=False)
+                n -= 2
+            except TypeError:
+                n -= 1
+                print('程序报错，进行数据清洗')
+                for x in [4, 5, 6]:
+                    if file_chunk[x].dtype == 'object':
+                        file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
+                        file_chunk[x] = file_chunk[x].astype(float)
+
+    def stb_pm_vmos(self, file_in, file_out):
+        # 生成准确性校验字典字典
+        dict1 = {'STB-PM-VMOS-totalnum': 0, 'STB-PM-VMOS-006': 0, 'STB-PM-VMOS-007': 0}
+    
+        # 命名file_in文件的列名
+        columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        # 读取file_in文件
+        file = pd.read_csv(file_in, iterator=True, names=columns, sep='|', header=None)
+        # 转化成DF格式
+        file_chunk = file.get_chunk()
+        file_chunk['count1'] = 1
+        try:
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[2] = file_chunk[2].str.replace("[^\d]+", "0")
+            file_chunk[2] = file_chunk[2].astype(int)
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        try:
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[3] = file_chunk[3].str.replace("[^\d]+", "0")
+            file_chunk[3] = file_chunk[3].astype(int)
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        n = 2
+        while n > 0:
+            try:
+                # 总行数
+                dict1['STB-PM-VMOS-totalnum'] = file_chunk['count1'].sum()
+
+                dict1['STB-PM-VMOS-006'] = file_chunk.loc[(file_chunk[6] > 1000000)].count1.count()
+
+                dict1['STB-PM-VMOS-007'] = file_chunk.loc[(file_chunk[7] > 900)].count1.count()
+
+
+                exact = pd.DataFrame([dict1])
+                # 写入file_out文件
+                exact.T.to_csv(file_out, sep='|', header=None)
+                # 符合数值判断条件的行输出
+                xx = file_chunk.loc[
+                    (file_chunk[6] > 1000000) | (file_chunk[7] > 900), [
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10]].to_csv(
+                    file_out + '.value', sep='|', header=None, index=False)
+                
+                n -= 2
+            except TypeError:
+                n -= 1
+                print('程序报错，进行数据清洗')
+                for x in [6, 7]:
+                    if file_chunk[x].dtype == 'object':
+                        file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
+                        file_chunk[x] = file_chunk[x].astype(float)
+
+    def stb_inserv_http(self, file_in, file_out):
+        # 生成准确性校验字典字典
+        dict1 = {'STB-INSERV-HTTP-totalnum': 0, 'STB-INSERV-HTTP-011': 0, 'STB-INSERV-HTTP-012': 0,
+                 'STB-INSERV-HTTP-014': 0, 'STB-INSERV-HTTP-015': 0, 'STB-INSERV-HTTP-016': 0, 'STB-INSERV-HTTP-017': 0,
+                 'STB-INSERV-HTTP-012<=STB-INSERV-HTTP-011': 0, 'STB-INSERV-HTTP-015<=STB-INSERV-HTTP-014': 0,
+                 'STB-INSERV-HTTP-016<=STB-INSERV-HTTP-017': 0}
+    
+        # 命名file_in文件的列名
+        columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+        # 读取file_in文件
+        file = pd.read_csv(file_in, iterator=True, names=columns, sep='|', header=None)
+        # 转化成DF格式
+        file_chunk = file.get_chunk()
+        file_chunk['count1'] = 1
+        try:
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[2] = file_chunk[2].str.replace("[^\d]+", "0")
+            file_chunk[2] = file_chunk[2].astype(int)
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        try:
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[3] = file_chunk[3].str.replace("[^\d]+", "0")
+            file_chunk[3] = file_chunk[3].astype(int)
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        n = 2
+        while n > 0:
+            try:
+                # 总行数
+                dict1['STB-INSERV-HTTP-totalnum'] = file_chunk['count1'].sum()
+                # 判断条件 监控总数<=1000000
+                dict1['STB-INSERV-HTTP-011'] = file_chunk.loc[(file_chunk[11] > 900)].count1.count()
+                # 判断条件 当日/月登陆用户数<=1000000
+                dict1['STB-INSERV-HTTP-012'] = file_chunk.loc[(file_chunk[12] > 900)].count1.count()
+                # 判断条件 当日/月活跃用户数<=1000000
+                dict1['STB-INSERV-HTTP-014'] = file_chunk.loc[(file_chunk[14] > 1000000)].count1.count()
+                dict1['STB-INSERV-HTTP-015'] = file_chunk.loc[(file_chunk[15] > 1000000)].count1.count()
+                dict1['STB-INSERV-HTTP-016'] = file_chunk.loc[(file_chunk[16] > 900)].count1.count()
+                dict1['STB-INSERV-HTTP-017'] = file_chunk.loc[(file_chunk[17] > 900)].count1.count()
+                # 判断条件 开户用户数<=开户用户数总数
+                dict1['STB-INSERV-HTTP-015<=STB-INSERV-HTTP-014'] = file_chunk.loc[
+                    (file_chunk[15] > file_chunk[14])].count1.count()
+                # 判断条件 退网用户数<=开户用户数总数
+                dict1['STB-INSERV-HTTP-016<=STB-INSERV-HTTP-017'] = file_chunk.loc[
+                    (file_chunk[16] > file_chunk[17])].count1.count()
+                dict1['STB-INSERV-HTTP-012<=STB-INSERV-HTTP-011'] = file_chunk.loc[
+                    (file_chunk[12] > file_chunk[11])].count1.count()
+                exact = pd.DataFrame([dict1])
+                # 写入file_out文件
+                exact.T.to_csv(file_out, sep='|', header=None)
+                # 符合数值判断条件的行输出
+                xx = file_chunk.loc[
+                    (file_chunk[11] > 900) | (file_chunk[12] > 900) | (file_chunk[14] > 1000000) | (
+                                file_chunk[15] > 1000000) | (file_chunk[16] > 900) | (file_chunk[17] > 900)
+                    , [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]].to_csv(
+                    file_out + '.value', sep='|', header=None, index=False)
+                yy = file_chunk.loc[
+                    (file_chunk[15] > file_chunk[14]) | (file_chunk[16] > file_chunk[17]) | (
+                                file_chunk[12] > file_chunk[11]), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                                                                   16, 17]].to_csv(
+                    file_out + '.logic', sep='|', header=None, index=False)
+                n -= 2
+            except TypeError:
+                n -= 1
+                print('程序报错，进行数据清洗')
+                for x in [11, 12, 14, 15, 16, 17]:
+                    if file_chunk[x].dtype == 'object':
+                        file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
+                        file_chunk[x] = file_chunk[x].astype(float)
+
+    def stb_mos(self, file_in, file_out):
+        # 生成准确性校验字典字典
+        # dict1 = {'STB-MOS-totalnum': 0, 'STB-MOS-006': 0, 'STB-MOS-007': 0,
+        #          'STB-MOS-008': 0, 'STB-MOS-009': 0, 'STB-MOS-010': 0, 'STB-MOS-011': 0,'STB-MOS-012': 0,
+        #          'STB-MOS-006<=STB-MOS-007': 0, 'STB-MOS-008<=STB-MOS-006': 0,
+        #          'STB-MOS-009<=STB-MOS-010': 0, 'STB-MOS-011<=STB-MOS-009': 0}
+        dict1 = {'STB-MOS-totalnum': 0, 'STB-MOS-006': 0, 'STB-MOS-007': 0,
+                          'STB-MOS-008': 0, 'STB-MOS-009': 0, 'STB-MOS-010': 0, 'STB-MOS-011': 0,'STB-MOS-012': 0,}
+        
+        # 命名file_in文件的列名
+        columns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        # 读取file_in文件
+        file = pd.read_csv(file_in, iterator=True, names=columns, sep='|', header=None)
+        # 转化成DF格式
+        file_chunk = file.get_chunk()
+        file_chunk['count1'] = 1
+        try:
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[2] = file_chunk[2].str.replace("[^\d]+", "0")
+            file_chunk[2] = file_chunk[2].astype(int)
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        try:
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[3] = file_chunk[3].str.replace("[^\d]+", "0")
+            file_chunk[3] = file_chunk[3].astype(int)
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        n = 2
+        while n > 0:
+            try:
+                # 总行数
+                dict1['STB-MOS-totalnum'] = file_chunk['count1'].sum()
+                # 判断条件 监控总数<=1000000
+                dict1['STB-MOS-006'] = file_chunk.loc[(file_chunk[6] > 5)].count1.count()
+                # 判断条件 当日/月登陆用户数<=1000000
+                dict1['STB-MOS-007'] = file_chunk.loc[(file_chunk[7] > 5)].count1.count()
+                # 判断条件 当日/月活跃用户数<=1000000
+                dict1['STB-MOS-008'] = file_chunk.loc[(file_chunk[8] > 5)].count1.count()
+                dict1['STB-MOS-009'] = file_chunk.loc[(file_chunk[9] > 5)].count1.count()
+                dict1['STB-MOS-010'] = file_chunk.loc[(file_chunk[10] > 5)].count1.count()
+                dict1['STB-MOS-011'] = file_chunk.loc[(file_chunk[11] > 5)].count1.count()
+                dict1['STB-MOS-012'] = file_chunk.loc[(file_chunk[12] > 900)].count1.count()
+                # 判断条件 开户用户数<=开户用户数总数
+                # dict1['STB-MOS-006<=STB-MOS-007'] = file_chunk.loc[
+                #     (file_chunk[6] > file_chunk[7])].count1.count()
+                # 判断条件 退网用户数<=开户用户数总数
+                # dict1['STB-MOS-008<=STB-MOS-006'] = file_chunk.loc[
+                #     (file_chunk[8] > file_chunk[6])].count1.count()
+                # dict1['STB-MOS-009<=STB-MOS-010'] = file_chunk.loc[
+                #     (file_chunk[9] > file_chunk[10])].count1.count()
+                # dict1['STB-MOS-011<=STB-MOS-009'] = file_chunk.loc[
+                #     (file_chunk[11] > file_chunk[9])].count1.count()
+                exact = pd.DataFrame([dict1])
+                # 写入file_out文件
+                exact.T.to_csv(file_out, sep='|', header=None)
+                # 符合数值判断条件的行输出
+                xx = file_chunk.loc[
+                    (file_chunk[6] > 5) | (file_chunk[7] > 5) |(file_chunk[8] > 5) | (file_chunk[9] > 5) | (file_chunk[10] > 5) | (file_chunk[11] > 5)
+                    |(file_chunk[12] > 900), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]].to_csv(
+                    file_out + '.value', sep='|', header=None, index=False)
+                # yy = file_chunk.loc[
+                #     (file_chunk[6] > file_chunk[7]) | (file_chunk[8] > file_chunk[6]) | (file_chunk[9] > file_chunk[10])|
+                #     (file_chunk[11] > file_chunk[9]), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]].to_csv(
+                #     file_out + '.logic', sep='|', header=None, index=False)
+                n -= 2
+            except TypeError:
+                n -= 1
+                print('程序报错，进行数据清洗')
+                for x in [6, 7, 8, 9, 10, 11, 12]:
+                    if file_chunk[x].dtype == 'object':
+                        file_chunk[x] = file_chunk[x].str.replace("[^\d.]+", "0")
+                        file_chunk[x] = file_chunk[x].str.replace("^\.+", "0")
+                        file_chunk[x] = file_chunk[x].astype(float)
+
+    def iptv_liveava(self, file_in, file_out):
+        # 生成准确性校验字典字典
+        dict1 = {'IPTV-LIVEAVA-totalnum': 0, 'IPTV-LIVEAVA-004': 0, 'IPTV-LIVEAVA-005': 0,
+                 'IPTV-LIVEAVA-006': 0,'IPTV-LIVEAVA-005<=IPTV-LIVEAVA-004': 0, 'IPTV-LIVEAVA-006<=IPTV-LIVEAVA-004': 0}
+    
+        # 命名file_in文件的列名
+        columns = [1, 2, 3, 4, 5, 6]
+        # 读取file_in文件
+        file = pd.read_csv(file_in, iterator=True, names=columns, sep='|', header=None)
+        # 转化成DF格式
+        file_chunk = file.get_chunk()
+        file_chunk['count1'] = 1
+        try:
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[2] = file_chunk[2].str.replace("[^\d]+", "0")
+            file_chunk[2] = file_chunk[2].astype(int)
+            file_chunk[2] = file_chunk[2].fillna(0).astype(int)
+        try:
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        except ValueError:
+            file_chunk[3] = file_chunk[3].str.replace("[^\d]+", "0")
+            file_chunk[3] = file_chunk[3].astype(int)
+            file_chunk[3] = file_chunk[3].fillna(0).astype(int)
+        n = 2
+        while n > 0:
+            try:
+                # 总行数
+                dict1['IPTV-LIVEAVA-totalnum'] = file_chunk['count1'].sum()
+                # 判断条件 监控总数<=1000000
+                dict1['IPTV-LIVEAVA-004'] = file_chunk.loc[(file_chunk[4] > 1000000)].count1.count()
+                # 判断条件 当日/月登陆用户数<=1000000
+                dict1['IPTV-LIVEAVA-005'] = file_chunk.loc[(file_chunk[5] > 1000000)].count1.count()
+                # 判断条件 当日/月活跃用户数<=1000000
+                dict1['IPTV-LIVEAVA-006'] = file_chunk.loc[(file_chunk[6] > 1000000)].count1.count()
+            
+                # 判断条件 开户用户数<=开户用户数总数
+                dict1['IPTV-LIVEAVA-005<=IPTV-LIVEAVA-004'] = file_chunk.loc[
+                    (file_chunk[5] > file_chunk[4])].count1.count()
+                # 判断条件 退网用户数<=开户用户数总数
+                dict1['IPTV-LIVEAVA-006<=IPTV-LIVEAVA-004'] = file_chunk.loc[
+                    (file_chunk[6] > file_chunk[4])].count1.count()
+                
+                exact = pd.DataFrame([dict1])
+                # 写入file_out文件
+                exact.T.to_csv(file_out, sep='|', header=None)
+                # 符合数值判断条件的行输出
+                xx = file_chunk.loc[
+                    (file_chunk[4] > 1000000)|(file_chunk[5] > 1000000)|(file_chunk[6] > 1000000), [1, 2, 3, 4, 5, 6]].to_csv(
+                    file_out + '.value', sep='|', header=None, index=False)
+                yy = file_chunk.loc[
+                    (file_chunk[5] > file_chunk[4]) | (file_chunk[6] > file_chunk[4]), [1, 2, 3, 4, 5, 6]].to_csv(
                     file_out + '.logic', sep='|', header=None, index=False)
                 n -= 2
             except TypeError:
