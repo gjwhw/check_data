@@ -14,15 +14,15 @@ import sys
 starttime = datetime.datetime.now()
 print('开始时间')
 print(starttime)
-file_in = sys.argv[1]
-file_out = sys.argv[2]
-func_name = sys.argv[3]
+# file_in = sys.argv[1]
+# file_out = sys.argv[2]
+# func_name = sys.argv[3]
 # file_in = 'STB-PM-VMOS'
 # file_out = 'STB-PM-VMOS.txt'
 # func_name = 'stb_pm_vmos'
-# file_in = 'EPG-PM111'
-# file_out = 'EPG-PM.txt'
-# func_name = 'epg_pm'
+file_in = '1234.txt'
+file_out = 'EPG-PM.txt'
+func_name = 'cdn_pm'
 
 c = func.Test()
 try:

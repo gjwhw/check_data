@@ -19,11 +19,14 @@ print(starttime)
 # file_in = 'IPTV-LINK-PM.txt'
 # file_out = 'IPTV-LINK-PM-OUT.txt'
 # func_name = 'iptv_link_pm'
-file_in = '111.txt'
+file_in = '1234.txt'
 file_out = 'STB-TRANS-OUT.txt'
-func_name = 'epg_pm'
+func_name = 'cdn_pm'
 c = func.Test()
-getattr(c, func_name)(file_in, file_out)
+try:
+    getattr(c, func_name)(file_in,file_out)
+except FileNotFoundError:
+    print(func_name+"指标未采集到")
 
 print('运行时间')
 endtime = datetime.datetime.now()
